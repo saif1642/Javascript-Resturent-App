@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { domElements } from './views/base';
+import { domElements, renderLoader ,clearLoader} from './views/base';
 /** Global State of the Object
  * - Search object
  * - current recipee object
@@ -19,9 +19,12 @@ const searchController = async ()=>{
         //3. prepare UI for results
         searchView.clearInput();
         searchView.clearResults();
+        renderLoader(domElements.searchRes);
+
         //4. Search for recipee
         await state.search.getResults();
         //5. output result to UI
+        clearLoader();
         searchView.renderResults(state.search.result);
     }
 }
